@@ -57,18 +57,18 @@ export PATH=$PATH:$ANT_HOME/bin
 export TOMCAT_HOME=~/uportal/tomcat
 export PATH=$PATH:$TOMCAT_HOME
 
-export JAVA_OPTS="-server -XX:MaxPermSize=512m -Xms1024m -Xmx2048m"
-
 # ls after every cd
 function cd {
 	builtin cd "$@" && ls -F
 }
 
-# Soffit Build Script (Serves soffit on port 8090)
-function buildsoffit {
-	cd ~/soffits/preferredNames
-	./gradlew clean build
-	java -Dcatalina.home=build -Dserver.port=8090 -jar build/libs/preferredNames-0.0.1-SNAPSHOT.war
+# Deploys soffit on port 8090
+function deploysoffit {
+    for i in "$@"; do
+	  cd $i
+	  ./gradlew clean build
+	  java -Dcatalina.home=build -Dserver.port=8090 -jar build/libs/*.war
+	done
 }
 
 # Tomcat Script
