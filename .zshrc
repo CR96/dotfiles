@@ -37,7 +37,12 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 alias editzsh='vim ~/.zshrc'
+alias editvim='vim ~/.vimrc'
 alias source=source' ~/.zshrc'
+
+alias androidstudio='sh /usr/share/applications/android-studio/bin/studio.sh'
+alias gogland='sh /usr/share/applications/gogland/bin/gogland.sh'
+alias udk='~/unrealengine/Engine/Binaries/Linux/UE4Editor'
 
 export M2_HOME=~/uportal/maven
 export M2=$M2_HOME/bin
