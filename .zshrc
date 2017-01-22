@@ -9,6 +9,9 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
+# Don't ask for confirmation when rm * is used
+setopt rm_star_silent
+
 # Use modern completion system
 autoload -Uz compinit
 compinit
@@ -107,4 +110,47 @@ function t {
             echo "Unrecognized command. Type \"t help\" for a list of commands."
         fi
     done
+}
+
+# Delete, reclone, and rebuild Apereo's uPortal
+function bigredbutton {
+    read "response?Push the big red button? [y/N] "
+	if [[ $response =~ ^(yes|y)$ ]] then
+		  cd ~
+		  echo "Killing Tomcat..."
+		  t kill
+		  echo "Clearing Tomcat logs..."
+		  t clean && t cleanlogs
+		  echo "Cleaning gradle and .m2..."
+		  rm -rf ~/.gradle
+		  rm -rf ~/.m2/repository
+		  echo "Moving configuration files to a safe place..."
+		  mkdir ~/bigredbutton
+		  cp ~/uportal/uportal/build.properties ~/bigredbutton/build.properties
+		  cp ~/uportal/uportal/build.local.properties ~/bigredbutton/build.local.properties
+		  cp ~/uportal/uportal/pom.xml ~/bigredbutton/pom.xml
+		  cp ~/uportal/uportal/uportal-db/pom.xml ~/bigredbutton/pom-db.xml
+		  cp ~/uportal/uportal/filters/local.properties ~/bigredbutton/local.properties
+		  echo "Deleting uPortal..."
+		  rm -rf ~/uportal/uportal
+		  echo "Recloning uPortal..."
+		  git clone https://github.com/jasig/uPortal.git ~/uportal/uportal
+		  echo "Restoring configuration files..."
+		  cp ~/bigredbutton/build.properties ~/uportal/uportal/build.properties
+		  cp ~/bigredbutton/build.local.properties ~/uportal/uportal/build.local.properties
+		  cp ~/bigredbutton/pom.xml ~/uportal/uportal/pom.xml
+		  cp ~/bigredbutton/pom-db.xml ~/uportal/uportal/uportal-db/pom.xml
+		  cp ~/bigredbutton/local.properties ~/uportal/uportal/filters/local.properties
+		  rm -rf ~/bigredbutton
+		  echo "Building uPortal..."
+		  cd ~/uportal/uportal
+		  ant clean initportal
+          echo "Starting Tomcat..."
+		  t start
+		  sleep 10
+		  echo "Complete! Launching uPortal."
+		  xdg-open http://localhost:8080/uPortal
+	else
+		  echo "Abort."
+	fi
 }
