@@ -16,6 +16,9 @@ setopt rm_star_silent
 autoload -Uz compinit
 compinit
 
+# Show current directory at prompt
+export PS1="[%* - %D] %d %% "
+
 #################
 #               #
 #    Aliases    #
