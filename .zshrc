@@ -19,6 +19,8 @@ compinit
 #               #
 #################
 
+alias ls='ls -F --color=auto'
+
 alias editzsh='vim ~/.zshrc'
 alias editvim='vim ~/.vimrc'
 alias source=source' ~/.zshrc'
@@ -54,7 +56,7 @@ export PATH=$PATH:$TOMCAT_HOME
 
 # ls after every cd
 function cd {
-	builtin cd "$@" && ls -F
+	builtin cd "$@" && ls
 }
 
 # Deploys soffit on port 8090
