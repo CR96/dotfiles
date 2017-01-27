@@ -74,6 +74,14 @@ function deploysoffit {
 	done
 }
 
+# uPortal-specific grep
+function s {
+	cd ~/uportal/uportal
+	for i in "$@"; do
+		grep $i . -r --exclude-dir=target
+	done
+}
+
 # Tomcat Script
 function t {
 	for i in "$@"; do
