@@ -65,6 +65,16 @@ function cd {
 	builtin cd "$@" && ls
 }
 
+# Deploys portlet
+function deployportlet {
+	PROJECTDIR=$PWD
+
+	mvn clean package -Dfilters.file=/home/$USER/uportal/uportal/filters/local.properties
+	cd ~/uportal/uportal
+	ant deployPortletApp -DportletApp=$PROJECTDIR/target/$1
+	cd $PROJECTDIR
+}
+
 # Deploys soffit on port 8090
 function deploysoffit {
 	for i in "$@"; do
@@ -78,7 +88,7 @@ function deploysoffit {
 function s {
 	cd ~/uportal/uportal
 	for i in "$@"; do
-		grep $i . -r --exclude-dir=target
+		grep $i . -r -l --exclude-dir=target
 	done
 }
 
