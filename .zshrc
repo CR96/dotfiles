@@ -67,12 +67,11 @@ function cd {
 
 # Deploys portlet
 function deployportlet {
-	PROJECTDIR=$PWD
-
 	mvn clean package -Dfilters.file=/home/$USER/uportal/uportal/filters/local.properties
+	WARPATH=`readlink -f $(find . -name '*.war' -type f)`
 	cd ~/uportal/uportal
-	ant deployPortletApp -DportletApp=$PROJECTDIR/target/$1
-	cd $PROJECTDIR
+	ant deployPortletApp -DportletApp=$WARPATH
+	cd -
 }
 
 # Deploys soffit on port 8090
