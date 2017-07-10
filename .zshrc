@@ -31,9 +31,9 @@ alias editzsh='vim ~/.zshrc'
 alias editvim='vim ~/.vimrc'
 alias source=source' ~/.zshrc'
 
-alias androidstudio='sh /usr/share/applications/android-studio/bin/studio.sh'
-alias gogland='sh /usr/share/applications/gogland/bin/gogland.sh'
-alias udk='~/unrealengine/Engine/Binaries/Linux/UE4Editor'
+alias androidstudio='sh ~/programs/android-studio/bin/studio.sh'
+alias gogland='sh ~/programs/gogland/bin/gogland.sh'
+alias udk='~/programs/unrealengine/Engine/Binaries/Linux/UE4Editor'
 
 ###############################
 #                             #
@@ -48,11 +48,21 @@ export PATH=$M2:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 export PATH=%JAVA_HOME/bin:$PATH
 
+export ANDROID_HOME=${HOME}/Android/sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+
 export ANT_HOME=~/uportal/ant
 export PATH=$PATH:$ANT_HOME/bin
 
 export TOMCAT_HOME=~/uportal/tomcat
 export PATH=$PATH:$TOMCAT_HOME
+export CATALINA_HOME=~/uportal/tomcat
+export PATH=$PATH:$CATALINA_HOME
+
+export GOROOT=/usr/local/go/bin
+export GOPATH=$HOME/GoglandProjects
+export PATH=$PATH:$GOROOT/bin
 
 ########################
 #                      #
