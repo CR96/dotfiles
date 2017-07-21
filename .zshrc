@@ -75,13 +75,26 @@ function cd {
 	builtin cd "$@" && ls
 }
 
-# Deploys portlet
-function deployportlet {
+# Deploys Maven portlet
+function deployMavenPortlet {
 	mvn clean package -Dfilters.file=/home/$USER/uportal/uportal/filters/local.properties
 	WARPATH=`readlink -f $(find . -name '*.war' -type f)`
 	cd ~/uportal/uportal
 	ant deployPortletApp -DportletApp=$WARPATH
 	cd -
+}
+
+# Deploys Gradle portlet
+function deployGradlePortlet {
+	if gradle clean build -Dfilters=/home/$USER/uportal/uportal/filters/local.properties; then
+		sleep 1
+		WARPATH=`readlink -f $(find . -name '*.war' -type f)`
+		cd ~/uportal/uportal
+		sleep 1
+		ant deployPortletApp -DportletApp=$WARPATH
+		echo $WARPATH
+		cd -
+    fi
 }
 
 # Deploys soffit on port 8090
