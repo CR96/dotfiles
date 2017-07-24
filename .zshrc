@@ -41,6 +41,9 @@ alias udk='~/programs/unrealengine/Engine/Binaries/Linux/UE4Editor'
 #                             #
 ###############################
 
+export GRADLE_HOME=/opt/gradle/gradle-4.0.1/bin
+export PATH=$GRADLE_HOME:$PATH
+
 export M2_HOME=~/uportal/maven
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
@@ -60,9 +63,8 @@ export PATH=$PATH:$TOMCAT_HOME
 export CATALINA_HOME=~/uportal/tomcat
 export PATH=$PATH:$CATALINA_HOME
 
-export GOROOT=/usr/local/go/bin
-export GOPATH=$HOME/GoglandProjects
-export PATH=$PATH:$GOROOT/bin
+export GOPATH=${HOME}/go
+export PATH=$PATH:$GOPATH
 
 ########################
 #                      #
@@ -197,3 +199,7 @@ function bigredbutton {
 		echo "Abort."
 	fi
 }
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/corey/.sdkman"
+[[ -s "/home/corey/.sdkman/bin/sdkman-init.sh" ]] && source "/home/corey/.sdkman/bin/sdkman-init.sh"
