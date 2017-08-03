@@ -41,10 +41,13 @@ alias udk='~/programs/unrealengine/Engine/Binaries/Linux/UE4Editor'
 #                             #
 ###############################
 
+export UPORTAL_HOME=/home/$USER/uportal/mysail #default
+export PATH=$PATH:$UPORTAL_HOME
+
 export GRADLE_HOME=/opt/gradle/gradle-4.0.1/bin
 export PATH=$GRADLE_HOME:$PATH
 
-export M2_HOME=~/uportal/maven
+export M2_HOME=/home/$USER/uportal/maven
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
 
@@ -55,12 +58,12 @@ export ANDROID_HOME=${HOME}/Android/sdk
 export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 
-export ANT_HOME=~/uportal/ant
+export ANT_HOME=/home/$USER/uportal/ant
 export PATH=$PATH:$ANT_HOME/bin
 
-export TOMCAT_HOME=~/uportal/tomcat
+export TOMCAT_HOME=/home/$USER/uportal/tomcat
 export PATH=$PATH:$TOMCAT_HOME
-export CATALINA_HOME=~/uportal/tomcat
+export CATALINA_HOME=$TOMCAT_HOME
 export PATH=$PATH:$CATALINA_HOME
 
 export GOPATH=${HOME}/go
@@ -105,6 +108,32 @@ function deployGradlePortlet {
 		echo $WARPATH
 		cd -
     fi
+}
+
+# Switches maven repo between public and internal
+function switchMaven {
+	FILE_ACTIVE=/home/$USER/.m2/settings.xml
+	FILE_BACKUP=/home/$USER/.m2/settings_ou.xml
+	if [ -f $FILE_BACKUP ]; then
+			# Overwrite settings with the backup
+			mv $FILE_BACKUP $FILE_ACTIVE
+
+			# Set uPortal directory to apereo
+			export UPORTAL_HOME=/home/$USER/uportal/apereo
+			export PATH=$PATH:$UPORTAL_HOME
+
+			echo "Successfully switched to the internal repository."
+	else
+			# Backup the internal settings, then remove them
+			cp $FILE_ACTIVE $FILE_BACKUP
+			rm $FILE_ACTIVE
+
+			# Set uPortal directory to mysail
+			export UPORTAL_HOME=/home/$USER/uportal/mysail
+			export PATH=$PATH:$UPORTAL_HOME
+
+			echo "Successfully switched to the external repository."
+	fi
 }
 
 # Deploys soffit on port 8090
