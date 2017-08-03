@@ -72,6 +72,14 @@ export PATH=$PATH:$GOPATH
 #                      #
 ########################
 
+# Update everything, and don't ask about it
+function update {
+	sudo apt-get update
+	sudo apt-get upgrade -y
+	sudo apt-get dist-upgrade -y
+	sudo apt autoremove -y
+}
+
 # ls after every cd
 function cd {
 	builtin cd "$@" && ls
