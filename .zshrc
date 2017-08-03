@@ -90,19 +90,19 @@ function cd {
 
 # Deploys Maven portlet
 function deployMavenPortlet {
-	mvn clean package -Dfilters.file=/home/$USER/uportal/uportal/filters/local.properties
+	mvn clean package -Dfilters.file=$UPORTAL_HOME/filters/local.properties
 	WARPATH=`readlink -f $(find . -name '*.war' -type f)`
-	cd ~/uportal/uportal
+	cd $UPORTAL_HOME
 	ant deployPortletApp -DportletApp=$WARPATH
 	cd -
 }
 
 # Deploys Gradle portlet
 function deployGradlePortlet {
-	if gradle clean build -Dfilters=/home/$USER/uportal/uportal/filters/local.properties; then
+	if gradle clean build -Dfilters=$UPORTAL_HOME/filters/local.properties; then
 		sleep 1
 		WARPATH=`readlink -f $(find . -name '*.war' -type f)`
-		cd ~/uportal/uportal
+		cd $UPORTAL_HOME
 		sleep 1
 		ant deployPortletApp -DportletApp=$WARPATH
 		echo $WARPATH
