@@ -118,8 +118,8 @@ function switchMaven {
 			# Overwrite settings with the backup
 			mv $FILE_BACKUP $FILE_ACTIVE
 
-			# Set uPortal directory to apereo
-			export UPORTAL_HOME=/home/$USER/uportal/apereo
+			# Set uPortal directory to mysail
+			export UPORTAL_HOME=/home/$USER/uportal/mysail
 			export PATH=$PATH:$UPORTAL_HOME
 
 			echo "Successfully switched to the internal repository."
@@ -128,8 +128,8 @@ function switchMaven {
 			cp $FILE_ACTIVE $FILE_BACKUP
 			rm $FILE_ACTIVE
 
-			# Set uPortal directory to mysail
-			export UPORTAL_HOME=/home/$USER/uportal/mysail
+			# Set uPortal directory to apereo
+			export UPORTAL_HOME=/home/$USER/uportal/apereo
 			export PATH=$PATH:$UPORTAL_HOME
 
 			echo "Successfully switched to the external repository."
