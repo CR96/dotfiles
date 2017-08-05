@@ -25,6 +25,14 @@ export PS1="[%* - %D] %d %% "
 #               #
 #################
 
+# Video playback in the tty, just for fun
+alias play='mplayer -vo caca'
+
+alias mute='pactl set-sink-volume 0 0%'
+alias volup='pactl set-sink-volume 0 +5%'
+alias voldown='pactl set-sink-volume 0 -5%'
+
+
 alias ls='ls -F --color=auto'
 
 alias editzsh='vim ~/.zshrc'
