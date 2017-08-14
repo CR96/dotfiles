@@ -26,7 +26,8 @@ export PS1="[%* - %D] %d %% "
 #################
 
 # Video playback in the tty, just for fun
-alias play='mplayer -vo caca'
+alias play='mpv'
+alias playascii='mplayer -vo caca'
 
 alias mute='pactl set-sink-volume 0 0%'
 alias volup='pactl set-sink-volume 0 +5%'
