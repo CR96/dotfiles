@@ -92,6 +92,11 @@ function update {
 	sudo apt autoremove -y
 }
 
+# Manually connect to wifi when it's being buggy
+function fixwifi {
+	sudo nmcli dev wifi connect "$1" password "$2"
+}
+
 # ls after every cd
 function cd {
 	builtin cd "$@" && ls
