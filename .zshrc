@@ -33,6 +33,8 @@ alias mute='pactl set-sink-volume 0 0%'
 alias volup='pactl set-sink-volume 0 +5%'
 alias voldown='pactl set-sink-volume 0 -5%'
 
+# Git enhancements
+alias log='git log --graph --decorate --pretty=oneline --abbrev-commit --all'
 
 alias ls='ls -F --color=auto'
 
