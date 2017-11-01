@@ -53,7 +53,10 @@ alias udk='~/programs/unrealengine/Engine/Binaries/Linux/UE4Editor'
 ###############################
 
 export UPORTAL_HOME=/home/$USER/uportal/mysail #default
+export PORTAL_HOME=/home/$USER/portal
+
 export PATH=$PATH:$UPORTAL_HOME
+export PATH=$PATH:$PORTAL_HOME
 
 export GRADLE_HOME=/opt/gradle/gradle-4.0.1/bin
 export PATH=$GRADLE_HOME:$PATH
