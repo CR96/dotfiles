@@ -25,6 +25,8 @@ select partition 2
 assign letter=z
 ^C
 z:
+cd EFI
+cd ubuntu
 copy "c:\Users\corey\emergency-bootloader\shimx64.efi" .
 copy "c:\Users\corey\emergency-bootloader\grubx64.efi"
 ```
