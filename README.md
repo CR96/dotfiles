@@ -13,7 +13,7 @@ This system cannot boot from USB, the boot order cannot be changed, and the exis
 - This entry is searching for "/EFI/ubuntu/shimx64.efi".
 - The file "/EFI/ubuntu/grubx64.efi" must also be present to enter rescue mode.
 
-Emergency copies of these files are available under "Emergency EFIs" in the Windows home folder.
+Emergency copies of these files are available under `emergency-bootloader` in the Windows home folder.
 They were downloaded from [this Stack Exchange response](https://askubuntu.com/questions/597376), but can also be obtained from an Ubuntu ISO with a little work.
 
 ## Steps to fix
@@ -25,7 +25,7 @@ select partition 2
 assign letter=z
 ^C
 z:
-copy "c:\Users\corey\Emergency EFIs\shimx64.efi" .
+copy "c:\Users\corey\emergency-bootloader\shimx64.efi" .
 copy "c:\Users\corey\emergency-bootloader\grubx64.efi"
 ```
 
