@@ -14,7 +14,7 @@ This system cannot boot from USB, the boot order cannot be changed, and the exis
 - The file "/EFI/ubuntu/grubx64.efi" must also be present to enter rescue mode.
 
 Emergency copies of these files are available under `emergency-bootloader` in the Windows home folder.
-They were downloaded from [this Stack Exchange response](https://askubuntu.com/questions/597376), but can also be obtained from an Ubuntu ISO with a little work.
+They were downloaded from [this Stack Exchange response](https://askubuntu.com/a/597381), but can also be obtained from an Ubuntu ISO with a little work.
 
 ## Steps to fix
 Open an elevated command prompt and run the following:
