@@ -1,11 +1,13 @@
 # Restoring the Grub2 bootloader
+A guide for my future self
+
 
 ## The problem
 <b>The NVRAM in this system (Lenovo Y50-70 Touch 80DT, August 2015) has entered a read-only state.</b>
 
 See [this writeup](https://www.dedoimedo.com/computers/lenovo-g50-read-only-nvram.html) on another Lenovo user's virtually identical situation.
 
-This system cannot boot from USB, the boot order cannot be changed, and the existing path to Grub2 cannot be modified.
+This system cannot boot from USB, the boot order cannot be changed, and the existing path to grub2 cannot be modified.
 
 - The EFI entry that is attempting to load is 'ubuntu'.
 - This entry is searching for "/EFI/ubuntu/shimx64.efi".
