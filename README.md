@@ -44,8 +44,27 @@ boot
 
 Ubuntu should then boot successfully. Upon install, Ubuntu will reconstruct the Grub bootloader, at which point you can add custom entries to access Linux distributions on separate partitions. These must be accessed through the Ubuntu bootloader due to the NVRAM failure.
 
+## Extras
+### Booting a Windows installation USB
+This requires a full GRUB install; the rescue prompt is not sufficient.
+
+```
+insmod ntfs
+set root=(hd0,msdos1)
+chainloader (${root})/EFI/Microsoft/Boot/bootmgfw.efi
+boot
+```
+
+### Booting GParted Live from disk partition
+```
+set root=(hd0,8)
+linux /live-hd/vmlinuz boot=live config union=overlay username=user components noswap noeject vga=788 ip= net.ifnames=0 live-media-path=/live-hd bootfrom=/dev/sda8 toram=filesystem.squashfs
+initrd /live-hd/initrd.img
+boot
+```
+
 ## Notes
 <b>NEVER move, resize, reformat or delete Partition 2 (EFI) on this hard drive.</b>
-If the UUID of the EFI partition changes, the system will require motherboard replacement to boot.
+If the firmware cannot recognize the EFI partition, a PXE boot will be required to access files on the disk. If the ethernet card were to then fail, the system would require motherboard replacement.
 
 #### Corey Rowe, November 2017
