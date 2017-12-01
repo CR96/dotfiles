@@ -42,30 +42,23 @@ alias editzsh='vim ~/.zshrc'
 alias editvim='vim ~/.vimrc'
 alias source=source' ~/.zshrc'
 
-alias androidstudio='sh ~/programs/android-studio/bin/studio.sh'
-alias gogland='sh ~/programs/gogland/bin/gogland.sh'
-alias udk='~/programs/unrealengine/Engine/Binaries/Linux/UE4Editor'
-
 ###############################
 #                             #
 #    Environment Variables    #
 #                             #
 ###############################
 
-export UPORTAL_HOME=/home/$USER/uportal/mysail #default
+export UPORTAL_HOME=/home/$USER/uportal/uportal #default
 export PORTAL_HOME=/home/$USER/portal
 
 export PATH=$PATH:$UPORTAL_HOME
 export PATH=$PATH:$PORTAL_HOME
 
-export GRADLE_HOME=/opt/gradle/gradle-4.0.1/bin
-export PATH=$GRADLE_HOME:$PATH
-
 export M2_HOME=/home/$USER/uportal/maven
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 export PATH=%JAVA_HOME/bin:$PATH
 
 export ANDROID_HOME=${HOME}/Android/sdk
@@ -88,19 +81,6 @@ export PATH=$PATH:$GOPATH
 #    Custom Scripts    #
 #                      #
 ########################
-
-# Update everything, and don't ask about it
-function update {
-	sudo apt-get update
-	sudo apt-get upgrade -y
-	sudo apt-get dist-upgrade -y
-	sudo apt autoremove -y
-}
-
-# Manually connect to wifi when it's being buggy
-function fixwifi {
-	sudo nmcli dev wifi connect "$1" password "$2"
-}
 
 # ls after every cd
 function cd {
@@ -148,7 +128,7 @@ function switchMaven {
 			rm $FILE_ACTIVE
 
 			# Set uPortal directory to apereo
-			export UPORTAL_HOME=/home/$USER/uportal/apereo
+			export UPORTAL_HOME=/home/$USER/uportal/uportal
 			export PATH=$PATH:$UPORTAL_HOME
 
 			echo "Successfully switched to the external repository."
@@ -166,7 +146,7 @@ function deploysoffit {
 
 # uPortal-specific grep
 function s {
-	cd ~/uportal/uportal
+	cd $UPORTAL_HOME
 	for i in "$@"; do
 		grep $i . -r -l --exclude-dir=target
 	done
@@ -211,47 +191,4 @@ function t {
 			echo "Unrecognized command. Type \"t help\" for a list of commands."
 		fi
 	done
-}
-
-# Delete, reclone, and rebuild Apereo's uPortal
-function bigredbutton {
-	read "response?Push the big red button? [y/N] "
-	if [[ $response =~ ^(yes|y)$ ]] then
-		cd ~
-		echo "Killing Tomcat..."
-		t kill
-		echo "Clearing Tomcat logs..."
-		t clean && t cleanlogs
-		echo "Cleaning gradle and .m2..."
-		rm -rf ~/.gradle
-		rm -rf ~/.m2/repository
-		echo "Moving configuration files to a safe place..."
-		mkdir ~/bigredbutton
-		cp ~/uportal/uportal/build.properties ~/bigredbutton/build.properties
-		cp ~/uportal/uportal/build.local.properties ~/bigredbutton/build.local.properties
-		cp ~/uportal/uportal/pom.xml ~/bigredbutton/pom.xml
-		cp ~/uportal/uportal/uportal-db/pom.xml ~/bigredbutton/pom-db.xml
-		cp ~/uportal/uportal/filters/local.properties ~/bigredbutton/local.properties
-		echo "Deleting uPortal..."
-		rm -rf ~/uportal/uportal
-		echo "Recloning uPortal..."
-		git clone https://github.com/jasig/uPortal.git ~/uportal/uportal
-		echo "Restoring configuration files..."
-		cp ~/bigredbutton/build.properties ~/uportal/uportal/build.properties
-		cp ~/bigredbutton/build.local.properties ~/uportal/uportal/build.local.properties
-		cp ~/bigredbutton/pom.xml ~/uportal/uportal/pom.xml
-		cp ~/bigredbutton/pom-db.xml ~/uportal/uportal/uportal-db/pom.xml
-		cp ~/bigredbutton/local.properties ~/uportal/uportal/filters/local.properties
-		rm -rf ~/bigredbutton
-		echo "Building uPortal..."
-		cd ~/uportal/uportal
-		ant clean initportal
-		echo "Starting Tomcat..."
-		t start
-		sleep 10
-		echo "Complete! Launching uPortal."
-		xdg-open http://localhost:8080/uPortal
-	else
-		echo "Abort."
-	fi
 }
