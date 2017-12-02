@@ -61,7 +61,7 @@ export PATH=$M2:$PATH
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 export PATH=%JAVA_HOME/bin:$PATH
 
-export ANDROID_HOME=${HOME}/Android/sdk
+export ANDROID_HOME=/usr/local/android
 export PATH=${PATH}:${ANDROID_HOME}/tools
 export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 
