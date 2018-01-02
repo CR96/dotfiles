@@ -1,6 +1,14 @@
 # Accessing GRUB in an emergency situation
 A guide for my future self
 
+## Update: Insyde BIOS and the Linux kernel
+The issue described below is caused by a bug in how the Linux kernel interacted with EFI firmware authored by Insyde prior to kernel version 4.14.9.
+
+To restore the BIOS to a working state, **boot a copy of Ubuntu using kernel 4.14.9 or higher.**
+
+See [this bug report](https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1734147) for further information.
+
+#### Corey Rowe, January 2018
 
 ## The problem
 <b>The NVRAM in this system (Lenovo Y50-70 Touch 80DT, August 2015) has entered a read-only state.</b>
