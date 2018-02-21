@@ -25,6 +25,8 @@ export PS1="[%* - %D] %d %% "
 #               #
 #################
 
+alias webapp=$UPORTAL_HOME/bin/webapp_cntl.sh
+
 # Video playback in the tty, just for fun
 alias play='mpv'
 alias playascii='mplayer -vo caca'
