@@ -70,11 +70,6 @@ export PATH=${PATH}:${ANDROID_HOME}/platform-tools
 export ANT_HOME=/home/$USER/uportal/ant
 export PATH=$PATH:$ANT_HOME/bin
 
-export TOMCAT_HOME=/home/$USER/uportal/tomcat
-export PATH=$PATH:$TOMCAT_HOME
-export CATALINA_HOME=$TOMCAT_HOME
-export PATH=$PATH:$CATALINA_HOME
-
 export GOPATH=${HOME}/go
 export PATH=$PATH:$GOPATH
 
@@ -206,27 +201,27 @@ function s {
 function t {
 	for i in "$@"; do
 		if [[ $i == "start" ]]; then
-			$TOMCAT_HOME/bin/startup.sh
+			$CATALINA_HOME/bin/startup.sh
 		elif [[ $i == "stop" ]]; then
-			$TOMCAT_HOME/bin/shutdown.sh
+			$CATALINA_HOME/bin/shutdown.sh
 			sleep 5
 		elif [[ $i == "kill" ]]; then
 			pkill -f "tomcat"
 		elif [[ $i == "restart" ]]; then
-			$TOMCAT_HOME/bin/shutdown.sh
+			$CATALINA_HOME/bin/shutdown.sh
 			echo "Restarting..."
 			sleep 10
-			$TOMCAT_HOME/bin/startup.sh
+			$CATALINA_HOME/bin/startup.sh
 		elif [[ $i == "clean" ]]; then
-			rm -rf $TOMCAT_HOME/webapps/*
-			rm -rf $TOMCAT_HOME/work/*
-			rm -rf $TOMCAT_HOME/temp/*
+			rm -rf $CATALINA_HOME/webapps/*
+			rm -rf $CATALINA_HOME/work/*
+			rm -rf $CATALINA_HOME/temp/*
 		elif [[ $i == "cleanlogs" ]]; then
-			rm -rf $TOMCAT_HOME/logs/*
+			rm -rf $CATALINA_HOME/logs/*
 		elif [[ $i == "s" || $i == "status" ]]; then
 			ps aux | grep 'tomcat'
 		elif [[ $i == "tail" ]]; then
-			tail -f $TOMCAT_HOME/logs/catalina.out
+			tail -f $CATALINA_HOME/logs/catalina.out
 		elif [[ $i == "help" || $i == "h" ]]; then
 			echo "Tomcat commands:"
 			echo "start: starts Tomcat"
