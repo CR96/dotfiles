@@ -50,8 +50,8 @@ alias source=source' ~/.zshrc'
 #                             #
 ###############################
 
-export UPORTAL_HOME=/home/$USER/uportal/uportal #default
-export PORTAL_HOME=/home/$USER/portal
+export UPORTAL_HOME=/home/$USER/uportal/uportal-start #default
+export PORTAL_HOME=/home/$USER/portal-apereo #default
 
 export PATH=$PATH:$UPORTAL_HOME
 export PATH=$PATH:$PORTAL_HOME
@@ -111,30 +111,78 @@ function deployGradlePortlet {
     fi
 }
 
-# Switches maven repo between public and internal
-function switchMaven {
-	FILE_ACTIVE=/home/$USER/.m2/settings.xml
-	FILE_BACKUP=/home/$USER/.m2/settings_ou.xml
-	if [ -f $FILE_BACKUP ]; then
-			# Overwrite settings with the backup
-			mv $FILE_BACKUP $FILE_ACTIVE
+# Set up environment variables for uPortal 4/5 or MySAIL 4/5
+function switchEnv {
+	echo "Killing Tomcat to avoid conflicts."
+	pkill -f "tomcat"
+	for i in "$@"; do
+		if [[ $i == "0" ]] then
 
-			# Set uPortal directory to mysail
-			export UPORTAL_HOME=/home/$USER/uportal/mysail
-			export PATH=$PATH:$UPORTAL_HOME
+			echo "Setting UPORTAL_HOME to '~/uportal/uportal-start'."
+			export UPORTAL_HOME=/home/$USER/uportal/uportal-start
 
-			echo "Successfully switched to the internal repository."
-	else
-			# Backup the internal settings, then remove them
-			cp $FILE_ACTIVE $FILE_BACKUP
-			rm $FILE_ACTIVE
+			echo "Unsetting CATALINA_HOME."
+			unset CATALINA_HOME
 
-			# Set uPortal directory to apereo
+			echo "Setting PORTAL_HOME to '~/portal-apereo'."
+			export PORTAL_HOME=/home/$USER/portal-apereo
+
+			export PATH=$PATH:$UPORTAL_HOME:$PORTAL_HOME
+			echo "Successfully switched to uPortal 5 build environment."
+
+		elif [[ $i == "1" ]] then
+
+			echo "Setting UPORTAL_HOME to '~/uportal/mysail-start'."
+			export UPORTAL_HOME=/home/$USER/uportal/mysail-start
+
+			echo "Unsetting CATALINA_HOME."
+			unset CATALINA_HOME
+
+			echo "Setting PORTAL_HOME to '~/portal-ou'."
+			export PORTAL_HOME=/home/$USER/portal-ou
+
+			export PATH=$PATH:$UPORTAL_HOME:$PORTAL_HOME
+			echo "Successfully switched to MySAIL 5 build environment."
+
+		elif [[ $i == "2" ]]; then
+
+			echo "Setting UPORTAL_HOME to '~/uportal/uportal'."
 			export UPORTAL_HOME=/home/$USER/uportal/uportal
-			export PATH=$PATH:$UPORTAL_HOME
 
-			echo "Successfully switched to the external repository."
-	fi
+			echo "Setting CATALINA_HOME to '~/uportal/tomcat-uportal4'."
+			export CATALINA_HOME=/home/$USER/uportal/tomcat-uportal4
+
+			echo "Unsetting PORTAL_HOME."
+			unset PORTAL_HOME
+
+			export PATH=$PATH:$UPORTAL_HOME:$CATALINA_HOME
+			echo "Successfully switched to uPortal 4 build environment."
+
+		elif [[ $i == "3" ]]; then
+
+			echo "Setting UPORTAL_HOME to '~/uportal/mysail4'."
+			export UPORTAL_HOME=/home/$USER/uportal/mysail4
+
+			echo "Setting CATALINA_HOME to '~/uportal/tomcat-mysail4'."
+			export CATALINA_HOME=/home/$USER/uportal/tomcat-mysail4
+
+			echo "Unsetting PORTAL_HOME."
+			unset PORTAL_HOME
+
+			export PATH=$PATH:$UPORTAL_HOME:$CATALINA_HOME
+			echo "Successfully switched to MySAIL 4 build environment."
+
+		elif [[ $i == "help" ]]; then
+			echo "Usage: switchEnv [OPTION]"
+			echo "0: uPortal 5"
+			echo "1: MySAIL 5"
+			echo "2: uPortal 4"
+			echo "3: MySAIL 4"
+		else
+			echo "Unknown build environment. Use 'switchEnv help' for a list."
+		fi
+	done
+
 }
 
 # Deploys soffit on port 8090
