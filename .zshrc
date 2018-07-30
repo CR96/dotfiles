@@ -25,6 +25,10 @@ export PS1="[%* - %D] %d %% "
 #               #
 #################
 
+# Silence system bell when using less pager
+alias less='less -Q'
+alias man 'man -P "less -Q"'
+
 alias webapp=$UPORTAL_HOME/bin/webapp_cntl.sh
 
 # Video playback in the tty, just for fun
