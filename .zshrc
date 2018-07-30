@@ -64,7 +64,7 @@ export M2_HOME=/home/$USER/uportal/maven
 export M2=$M2_HOME/bin
 export PATH=$M2:$PATH
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+export JAVA_HOME=/opt/icedtea-bin-3.8.0/
 export PATH=%JAVA_HOME/bin:$PATH
 
 export ANDROID_HOME=/usr/local/android
