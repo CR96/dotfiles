@@ -48,6 +48,9 @@ alias editzsh='vim ~/.zshrc'
 alias editvim='vim ~/.vimrc'
 alias source=source' ~/.zshrc'
 
+# AutoDock Vina UI
+alias vina='sh /home/corey/programs/mgl_tools/bin/adt'
+
 ###############################
 #                             #
 #    Environment Variables    #
