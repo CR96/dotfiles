@@ -51,5 +51,6 @@ function cd {
 
 # Prevent deleting something important
 function safedelete {
-	mv "$@" ~/deleted
+	mkdir -p ~/deleted/
+	mv "$@" ~/deleted/
 }
