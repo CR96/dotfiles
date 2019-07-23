@@ -1,0 +1,32 @@
+#. bashrc
+
+# Source global definition
+if [ -f /etc/bashrc ]; then
+		. /etc/bashrc
+fi
+
+#################
+#               #
+#    Aliases    #
+#               #
+#################
+
+alias ls='ls -F --color=auto'
+
+# Git log enhancement
+alias log='git log --graph --decorate --pretty=oneline --abbrev-commit --all'
+
+# AutoDock Vina
+alias vina='~/autodock/bin/vina'
+alias vina_split='~/autodock/bin/vina_split'
+
+########################
+#                      #
+#    Custom Scripts    #
+#                      #
+########################
+
+# ls after every cd
+function cd {
+	builtin cd "$@" && ls
+}
