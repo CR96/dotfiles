@@ -4,6 +4,14 @@
 #                 #
 ###################
 
+# Enable Spaceship ZSH
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+fpath=($fpath "/home/corey/.zfunctions")
+
+autoload -Uz compinit promptinit; promptinit
+compinit
+prompt spaceship
+
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
 SAVEHIST=1000
@@ -11,13 +19,6 @@ HISTFILE=~/.zsh_history
 
 # Don't ask for confirmation when rm * is used
 setopt rm_star_silent
-
-# Use modern completion system
-autoload -Uz compinit
-compinit
-
-# Show current directory at prompt
-export PS1="[%* - %D] %d %% "
 
 #################
 #               #
